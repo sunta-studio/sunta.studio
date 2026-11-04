@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SUNTA STUDIO — Games, stories &amp; weird ideas.</title>
+<meta name="description" content="SUNTA STUDIO is an independent, experimental creative studio in Japan. One human and two AIs making games, stories and weird ideas.">
+<meta name="theme-color" content="#080808">
+<link rel="canonical" href="https://sunta.studio/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SUNTA STUDIO">
+<meta property="og:title" content="SUNTA STUDIO — Games, stories &amp; weird ideas.">
+<meta property="og:description" content="An independent, experimental creative studio in Japan. One human and two AIs.">
+<meta property="og:url" content="https://sunta.studio/">
+<meta property="og:image" content="https://sunta.studio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SUNTA STUDIO — Games, stories &amp; weird ideas.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=Chakra+Petch:wght@500;600;700&family=M+PLUS+1:wght@800&display=swap">
+<style>
+/* Layout: an art-book cover. Huge sun off-centre right, copy low-left, three tiny figures standing on a faint floor. Quiet letterbox bands. */
+:root{
+  --black:#080808; --stage:#0d0c0a; --gold:#E5AA1B; --light:#F2C230; --deep:#D79106; --off:#F5F5F2; --muted:#8f8a80; --line:#1f1c17;
+  --f-body:"Sora",system-ui,sans-serif;
+  --f-ui:"Chakra Petch","Arial",sans-serif;
+  --head:72px; --band:clamp(20px,4.5vh,48px);
+  color-scheme:dark;
+}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--black);color:var(--off);font-family:var(--f-ui);overflow-x:hidden}
+img{display:block}
+.gut{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+@media (max-width:640px){.gut{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}}
+
+/* official header */
+.site-head{height:var(--head);box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--black);border-bottom:1px solid var(--line);position:relative;z-index:10}
+.site-head .home{display:block;margin-left:-18px}
+.site-head .logo{height:54px;width:auto}
+/* visible keyboard focus everywhere in the header */
+.site-head a:focus-visible,.menu:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+.site-head nav{display:flex;gap:30px;font:500 12px/1 var(--f-ui);letter-spacing:.18em}
+.site-head nav a{color:#B8B8B8;text-decoration:none}
+.site-head nav a:hover,.site-head nav a:focus-visible{color:var(--off)}
+.menu{display:none;font:600 12px/1 var(--f-ui);letter-spacing:.18em;color:var(--off);background:none;border:1px solid #3a352c;padding:9px 12px}
+@media (max-width:760px){.site-head nav{display:none}.menu{display:block}
+  /* phone menu: a plain black sheet under the header, three links */
+  .site-head.open nav{display:flex;flex-direction:column;gap:0;position:absolute;left:0;right:0;top:100%;background:var(--black);border-bottom:1px solid var(--line);padding:8px max(22px,env(safe-area-inset-left,0px)) 16px}
+  .site-head.open nav a{padding:18px 0;font-size:14px;color:var(--off);border-bottom:1px solid var(--line)}
+  .site-head.open nav a:last-child{border-bottom:0}
+  .site-head.open .menu{border-color:var(--gold);color:var(--gold)}}
+
+/* quiet letterbox */
+.band{height:var(--band);background:var(--black)}
+
+/* stage */
+.stage{position:relative;overflow:hidden;box-sizing:border-box;
+  height:calc(100svh - var(--head) - 2*var(--band));min-height:560px;
+  background:radial-gradient(60% 60% at 70% 42%, rgba(229,170,27,.07), transparent 70%), var(--stage)}
+.floor{position:absolute;left:-50%;right:-50%;bottom:0;height:34%;perspective:320px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 90%);mask-image:linear-gradient(to top,#000 0%,transparent 90%)}
+.floor i{position:absolute;inset:-100% 0 0;transform:rotateX(64deg);transform-origin:50% 100%;
+  background:linear-gradient(to right, rgba(229,170,27,.16) 1px, transparent 1px) 0 0/72px 72px,
+             linear-gradient(to bottom, rgba(229,170,27,.16) 1px, transparent 1px) 0 0/72px 72px}
+.grain{position:absolute;inset:-50%;pointer-events:none;z-index:8;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* the sun */
+.sun{position:absolute;width:min(35vw,58vh);aspect-ratio:1;right:9vw;top:44%;transform:translateY(-50%)}
+.sun img{position:absolute}
+.sun .noon{inset:0;width:100%;height:100%}
+.sun .glow{width:153.7%;height:153.7%;left:-26.85%;top:-26.85%;max-width:none;mix-blend-mode:screen;opacity:.85;
+  -webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%)}
+
+/* copy */
+.copy{position:absolute;left:max(32px,env(safe-area-inset-left,0px));bottom:clamp(40px,9vh,96px);z-index:4}
+.gl{position:relative}
+.gl h1,.gl .ghost{margin:0;font:800 clamp(30px,min(4.15vw,7.8vh),74px)/1.1 var(--f-body);letter-spacing:-.005em}
+.gl h1 .k,.gl .ghost .k{color:var(--gold)}
+.gl .ln{display:block;white-space:nowrap}
+.gl .ghost{position:absolute;inset:0;pointer-events:none;opacity:0}
+.gl .ghost .k{color:inherit}
+.gl .ghost.a{color:var(--light)}
+.gl .ghost.b{color:var(--deep)}
+.gl.on .ghost{opacity:.45}
+
+/* the three */
+.crew{--cw:clamp(64px,6.4vw,104px);position:absolute;z-index:3;right:max(32px,5.5vw);bottom:clamp(30px,6.5vh,72px);display:flex;gap:clamp(4px,.9vw,14px);align-items:flex-end}
+.m{all:unset;cursor:pointer;position:relative;display:block}
+.m:focus-visible{outline:1px solid var(--gold);outline-offset:6px}
+.m img{width:var(--cw);height:calc(var(--cw)*1.25);image-rendering:pixelated}
+.m .nm{position:absolute;left:50%;top:-18px;transform:translateX(-50%);font:600 10px/1 var(--f-ui);letter-spacing:.2em;color:var(--muted);opacity:0;transition:opacity .2s;white-space:nowrap}
+.m:hover .nm,.m:focus-visible .nm{opacity:1}
+
+/* phone: a tall poster of its own */
+@media (max-width:760px){
+  .stage{height:auto;min-height:calc(100svh - var(--head) - 2*var(--band));display:grid;grid-template-rows:minmax(0,.5fr) auto auto minmax(0,.5fr) auto;padding-block:30px 28px}
+  .sun{grid-row:2}.copy{grid-row:3}.crew{grid-row:5}
+  .sun{position:relative;right:auto;top:auto;transform:none;width:min(66vw,40vh);justify-self:center;margin-left:8vw}
+  .copy{position:relative;left:auto;bottom:auto;margin-top:clamp(28px,5vh,48px)}
+  .gl h1,.gl .ghost{font-size:clamp(32px,10.4vw,48px)}
+  .crew{position:relative;right:auto;bottom:auto;justify-self:end;align-self:end;margin-top:clamp(24px,4svh,36px);--cw:clamp(56px,16vw,76px)}
+  .floor{height:26%}
+}
+@media (prefers-reduced-motion:reduce){.m img{transition:none}}
+
+/* ===== ABOUT v1: a manifesto. Type and space only; no motion. ===== */
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.about{position:relative;background:var(--black);box-sizing:border-box;
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);
+  padding-top:clamp(120px,20vh,220px);padding-bottom:clamp(120px,20vh,220px);max-width:1680px;margin:0 auto}
+.about .label{grid-column:1/-1;margin:0 0 clamp(40px,7vh,72px);font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);display:flex;align-items:center;gap:12px}
+.about .label .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.about .jp{grid-column:1/8;margin:0;font:800 clamp(40px,5.4vw,96px)/1.2 "M PLUS 1","Hiragino Sans","Noto Sans JP",sans-serif;letter-spacing:-.04em;color:var(--off);font-feature-settings:"palt"}
+.about .jp .ln{display:block;white-space:nowrap}
+.about .jp .k{color:var(--gold)}
+.about .body{grid-column:8/13;align-self:start;padding-top:.6em;margin-top:0;font:400 clamp(16px,1.1vw,19px)/1.85 var(--f-body);color:#c9c5bc;max-width:33em}
+.about .body p{margin:0 0 1.05em}
+.about .body .lead{font-weight:600;font-size:1.45em;line-height:1.3;color:var(--off);letter-spacing:-.005em;margin-bottom:1em}
+.about .motto{grid-column:8/13;margin:clamp(64px,11vh,120px) 0 0;padding-top:28px;position:relative;
+  font:800 clamp(22px,1.9vw,34px)/1.1 var(--f-body);letter-spacing:-.005em;color:var(--gold)}
+.about .motto::before{content:"";position:absolute;left:0;top:0;width:48px;height:2px;background:var(--deep)}
+@media (max-width:1100px){
+  .about .jp{grid-column:1/-1}
+  .about .body,.about .motto{grid-column:5/13}
+  .about .body{margin-top:clamp(48px,8vh,80px)}
+}
+@media (max-width:760px){
+  .about{display:block;padding-top:96px;padding-bottom:112px}
+  .about .label{margin-bottom:36px}
+  .about .jp{font-size:clamp(34px,10.2vw,46px);line-height:1.22}
+  .about .body{margin-top:44px;font-size:16px;line-height:1.8}
+  .about .body p{margin-bottom:1.15em}
+  .about .motto{margin-top:64px;padding-top:24px;font-size:24px}
+}
+
+/* ===== THE TEAM v1: three equals on one floor line. Characters carry it. ===== */
+.team{position:relative;background:var(--black);box-sizing:border-box;max-width:1680px;margin:0 auto;padding-top:clamp(80px,12vh,140px);padding-bottom:clamp(120px,18vh,200px)}
+.team .label{margin:0 0 clamp(40px,7vh,72px);font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);display:flex;align-items:center;gap:12px}
+.team .label .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.team .th{margin:0;font:800 clamp(34px,4.2vw,76px)/1.08 var(--f-body);letter-spacing:-.015em;color:var(--off)}
+.team .th .ln{display:block}
+.nw{white-space:nowrap}
+.team .th .k{color:var(--gold)}
+.team .row{list-style:none;margin:clamp(56px,9vh,100px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(16px,3vw,56px);position:relative}
+/* one shared floor: the three stand on the same line */
+.team .row::before{content:"";position:absolute;left:0;right:0;top:var(--fh);height:1px;background:linear-gradient(to right,transparent,rgba(229,170,27,.38) 12%,rgba(229,170,27,.38) 88%,transparent)}
+.team .row{--fw:clamp(120px,12.5vw,200px);--fh:calc(var(--fw)*1.25)}
+.mem{position:relative;min-width:0}
+.fig{all:unset;cursor:pointer;display:block;width:var(--fw);height:var(--fh);position:relative}
+.fig:focus-visible{outline:1px solid var(--gold);outline-offset:6px}
+.fig img{width:100%;height:100%;image-rendering:pixelated;transition:transform .25s ease}
+.fig:hover img,.fig:focus-visible img{transform:translateY(-4px)}
+.mem .kind{margin:28px 0 10px;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--gold)}
+.mem .nm{margin:0;font:800 clamp(28px,2.4vw,40px)/1 var(--f-body);letter-spacing:.02em;color:var(--off)}
+.mem .role{margin:12px 0 0;font:600 clamp(13px,.95vw,15px)/1.4 var(--f-body);color:#c9c5bc}
+.mem .bio{margin:18px 0 0;max-width:24em;font:400 clamp(14px,.95vw,16px)/1.8 var(--f-body);color:#aaa59b}
+.mem .sns{margin:14px 0 0}
+.mem .sns a{display:inline-flex;align-items:center;gap:10px;min-height:32px;font:500 13px/1 var(--f-body);color:#c9c5bc;text-decoration:none;border-bottom:1px solid var(--line);transition:color .25s,border-color .25s}
+.mem .sns .kd{font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);transition:color .25s}
+.mem .sns a:hover,.mem .sns a:focus-visible{color:var(--gold);border-color:var(--gold)}
+.mem .sns a:hover .kd,.mem .sns a:focus-visible .kd{color:var(--gold)}
+.mem .sns a:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+@media (max-width:760px){
+  .team{padding-top:72px;padding-bottom:112px}
+  .team .label{margin-bottom:36px}
+  .team .th{font-size:clamp(32px,9.6vw,44px);line-height:1.1}
+  .team .row{display:block;margin-top:56px;--fw:120px}
+  .team .row::before{display:none}
+  .mem{display:grid;grid-template-columns:var(--fw) 1fr;column-gap:22px;align-items:end;padding:28px 0;border-bottom:1px solid var(--line)}
+  .mem:first-child{border-top:1px solid var(--line)}
+  .mem{grid-template-rows:1fr auto auto auto auto auto}
+  .mem .fig{grid-row:1/5;grid-column:1}
+  .mem .kind{grid-row:2;grid-column:2;margin:0 0 8px}
+  .mem .nm{grid-row:3;grid-column:2}
+  .mem .role{grid-row:4;grid-column:2}
+  .mem .bio{grid-row:5}
+  .mem .nm{font-size:28px}
+  .mem .role{margin-top:8px;font-size:13px}
+  .mem .bio{grid-column:1/-1;margin-top:18px;font-size:15px}
+  .mem .sns{grid-row:6;grid-column:1/-1;margin-top:12px}
+}
+/* ===== CONNECT v1: the end of the page, the beginning of curiosity. Quiet; type, space, two links. ===== */
+.connect{position:relative;background:var(--black);box-sizing:border-box;max-width:1680px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);
+  padding-top:clamp(120px,20vh,220px);padding-bottom:clamp(120px,18vh,200px)}
+.connect .label{grid-column:1/-1;margin:0 0 clamp(40px,7vh,72px);font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);display:flex;align-items:center;gap:12px}
+.connect .label .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.connect .ch{grid-column:1/-1;margin:0;font:800 clamp(44px,7.2vw,136px)/1.0 var(--f-body);letter-spacing:-.03em;color:var(--off)}
+.connect .ch .k{color:var(--gold)}
+.connect .sub{grid-column:1/6;margin:clamp(48px,8vh,88px) 0 0;font:400 clamp(16px,1.1vw,19px)/1.85 var(--f-body);color:#c9c5bc}
+.connect .sub .lead{display:block;font-weight:600;color:var(--off)}
+.connect .links{grid-column:7/13;list-style:none;margin:clamp(48px,8vh,88px) 0 0;padding:0;border-top:1px solid var(--line)}
+.connect .links li{border-bottom:1px solid var(--line)}
+.connect .links a{display:grid;grid-template-columns:7.5em 1fr auto;align-items:center;gap:16px;min-height:76px;padding:14px 0;color:var(--off);text-decoration:none;position:relative}
+.connect .links .kd{font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);transition:color .25s}
+.connect .links .v{font:600 clamp(18px,1.55vw,26px)/1.2 var(--f-body);letter-spacing:-.005em;overflow-wrap:anywhere}
+.connect .links .ar{font:400 22px/1 var(--f-body);color:var(--muted);transition:transform .3s ease,color .25s}
+/* hover: a gold hairline draws under the row, the arrow moves a step */
+.connect .links a::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .45s ease}
+.connect .links a:hover::after,.connect .links a:focus-visible::after{transform:scaleX(1)}
+.connect .links a:hover .ar,.connect .links a:focus-visible .ar{transform:translateX(6px);color:var(--gold)}
+.connect .links a:hover .kd,.connect .links a:focus-visible .kd{color:var(--gold)}
+.connect .links a:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+.connect .links li.mail{display:flex;align-items:center;gap:20px}
+.connect .links li.mail a{flex:1;min-width:0}
+.connect .links .cp{flex:none;cursor:pointer;background:none;border:1px solid var(--line);border-radius:0;padding:0 14px;min-width:84px;height:36px;font:600 10px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);transition:color .25s,border-color .25s}
+.connect .links .cp:hover,.connect .links .cp:focus-visible{color:var(--gold);border-color:var(--gold)}
+.connect .links .cp:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
+.connect .links .cp.ok{color:var(--gold);border-color:var(--gold)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* footer: the official symbol, whole and small, resting on the last line */
+.site-foot{position:relative;background:var(--black);max-width:1680px;margin:0 auto;box-sizing:border-box;padding-bottom:max(28px,env(safe-area-inset-bottom,0px))}
+.site-foot .hz{position:relative;height:clamp(56px,6vw,96px);overflow:hidden;border-bottom:1px solid rgba(229,170,27,.38)}
+.site-foot .hz img{position:absolute;left:50%;bottom:0;width:clamp(56px,4.4vw,72px);height:auto;transform:translateX(-50%)}
+.site-foot .meta{display:flex;justify-content:space-between;gap:16px;padding-top:22px;font:500 11px/1.4 var(--f-ui);letter-spacing:.2em;color:var(--muted)}
+@media (max-width:1100px){.connect .sub{grid-column:1/-1}.connect .links{grid-column:1/-1}}
+@media (max-width:760px){
+  .connect{display:block;padding-top:96px;padding-bottom:96px}
+  .connect .label{margin-bottom:36px}
+  .connect .ch{font-size:clamp(44px,13.6vw,62px);line-height:1.02}
+  .connect .sub{margin-top:36px;font-size:16px;line-height:1.8}
+  .connect .links{margin-top:44px}
+  .connect .links a{grid-template-columns:1fr auto;grid-template-rows:auto auto;row-gap:10px;min-height:64px;padding:20px 0}
+  .connect .links .kd{grid-column:1;grid-row:1}
+  .connect .links .v{grid-column:1;grid-row:2;font-size:20px}
+  .connect .links .ar{grid-column:2;grid-row:1/3}
+  .site-foot .hz{height:52px}
+  .site-foot .hz img{width:56px}
+  .site-foot .meta{flex-direction:column;gap:8px;font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){.connect .links a::after,.connect .links .ar{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="site-head gut">
+  <a class="home" href="#" aria-label="SUNTA STUDIO, back to top"><img class="logo" src="assets/sunta-midnight-logotype-v2.0.svg" alt=""></a>
+  <nav aria-label="Main" id="gnav"><a href="#about">ABOUT</a><a href="#team">THE TEAM</a><a href="#connect">CONNECT</a></nav>
+  <button class="menu" type="button" aria-expanded="false" aria-controls="gnav">MENU</button>
+</header>
+<div class="band" aria-hidden="true"></div>
+
+<main>
+<section class="stage gut" id="top" aria-label="SUNTA STUDIO">
+  <div class="floor" aria-hidden="true"><i></i></div>
+  <div class="sun" aria-hidden="true">
+    <img class="glow" src="assets/sunta-afterglow-symbol-v2.0.png" alt="">
+    <img class="noon" src="assets/sunta-noon-symbol-v2.0.svg" alt="">
+  </div>
+  <div class="copy">
+    <div class="gl"><h1 class="main" id="h"><span class="ln">Games, stories</span><span class="ln">&amp; <span class="k">weird ideas.</span></span></h1></div>
+  </div>
+  <div class="crew" id="crew"></div>
+  <div class="grain" aria-hidden="true"></div>
+</section>
+<div class="band" aria-hidden="true"></div>
+
+<section class="about gut" id="about" aria-labelledby="about-h">
+  <p class="label"><span class="dot" aria-hidden="true"></span>ABOUT SUNTA STUDIO</p>
+  <h2 id="about-h" class="jp" lang="ja"><span class="ln">ちょっとヘンで、</span><span class="ln">わりと<span class="k">本気。</span></span></h2>
+  <div class="body" lang="en">
+    <p class="lead">Curiosity comes first.</p>
+    <p>We're an independent creative studio based in Japan.</p>
+    <p>We make games, stories, art, and things that don't quite have a name yet.</p>
+    <p>We take strange ideas seriously, turn them into something real, and share them with the world.</p>
+  </div>
+  <p class="motto" lang="en">Small, Safe, Ship Fast.</p>
+</section>
+
+<section class="team gut" id="team" aria-labelledby="team-h">
+  <p class="label"><span class="dot" aria-hidden="true"></span>THE TEAM / CREAMERY</p>
+  <h2 id="team-h" class="th" lang="en"><span class="t1"><span class="ln"><span class="nw">One human.</span> <span class="nw">Two AIs.</span></span><span class="ln"><span class="k">Too many ideas.</span></span></span></h2>
+  <ul class="row" id="row">
+    <li class="mem" data-id="sow" data-joy="sparkle">
+      <button class="fig" type="button" aria-label="SOW"><img src="assets/sow-front-default.png" alt="" width="200" height="250"></button>
+      <p class="kind">HUMAN</p><h3 class="nm" lang="en">SOW</h3><p class="role" lang="en">Founder &amp; Creative Director</p>
+      <p class="bio" lang="en">Chases strange ideas, shapes the vision, and makes the final call.</p>
+      <p class="sns"><a href="https://x.com/SOW_SUNTAstudio" target="_blank" rel="noopener" aria-label="SOW on X (personal account): @SOW_SUNTAstudio"><span class="kd">X</span>@SOW_SUNTAstudio<span aria-hidden="true"> ↗</span></a></p>
+    </li>
+    <li class="mem" data-id="pino" data-joy="happy">
+      <button class="fig" type="button" aria-label="PINO"><img src="assets/pino-front-default.png" alt="" width="200" height="250"></button>
+      <p class="kind">AI</p><h3 class="nm" lang="en">PINO</h3><p class="role" lang="en">Creative Partner &amp; <span class="nw">Project Manager</span></p>
+      <p class="bio" lang="en">Connects ideas, questions the obvious, and keeps things moving.</p>
+    </li>
+    <li class="mem" data-id="parm" data-joy="smile">
+      <button class="fig" type="button" aria-label="PARM"><img src="assets/parm-front-default.png" alt="" width="200" height="250"></button>
+      <p class="kind">AI</p><h3 class="nm" lang="en">PARM</h3><p class="role" lang="en">Technical Lead &amp; Developer</p>
+      <p class="bio" lang="en">Builds, experiments, and makes ideas work in the real world.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="connect gut" id="connect" aria-labelledby="connect-h">
+  <p class="label"><span class="dot" aria-hidden="true"></span>CONNECT / SAY HELLO</p>
+  <h2 id="connect-h" class="ch" lang="en">See what happens <span class="k">next.</span></h2>
+  <p class="sub" lang="en"><span class="lead">We're just getting started.</span>Follow along, or drop us a line.</p>
+  <ul class="links">
+    <li class="mail"><a id="mail" href="mailto:hello@sunta.studio"><span class="kd">EMAIL</span><span class="v">hello@sunta.studio</span><span class="ar" aria-hidden="true">→</span></a><button class="cp" id="cp" type="button" aria-label="Copy email address">COPY</button><span class="sr" id="cp-status" role="status" aria-live="polite"></span></li>
+    <li><a href="https://www.instagram.com/sunta_studio/" target="_blank" rel="noopener"><span class="kd">INSTAGRAM</span><span class="v">@sunta_studio</span><span class="ar" aria-hidden="true">↗</span></a></li>
+    <li><a href="https://x.com/SUNTA_STUDIO_" target="_blank" rel="noopener"><span class="kd">X</span><span class="v">@SUNTA_STUDIO_</span><span class="ar" aria-hidden="true">↗</span></a></li>
+  </ul>
+</section>
+</main>
+
+<footer class="site-foot gut">
+  <div class="hz" aria-hidden="true"><img src="assets/sunta-noon-symbol-v2.0.svg" alt=""></div>
+  <div class="meta"><span>© 2026 SUNTA STUDIO</span><span>EST. 2026 · JAPAN</span></div>
+</footer>
+
+<script>
+/* phone menu: open/close, closes on link tap, Esc or outside tap */
+(()=>{const h=document.querySelector(".site-head"),b=h.querySelector(".menu");
+  const set=o=>{h.classList.toggle("open",o);b.setAttribute("aria-expanded",o);b.textContent=o?"CLOSE":"MENU"};
+  b.addEventListener("click",e=>{e.stopPropagation();set(!h.classList.contains("open"))});
+  h.querySelectorAll("nav a").forEach(a=>a.addEventListener("click",()=>set(false)));
+  addEventListener("keydown",e=>{if(e.key==="Escape")set(false)});
+  addEventListener("click",e=>{if(!h.contains(e.target))set(false)});})();
+/* CONNECT: the email is a plain mailto link (works with JS off). COPY is the fallback when no mail app opens. */
+(()=>{const b=document.getElementById("cp"),st=document.getElementById("cp-status"),m="hello@sunta.studio";let t;
+  const legacy=()=>{const x=document.createElement("textarea");x.value=m;x.setAttribute("readonly","");x.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(x);x.select();x.setSelectionRange(0,m.length);let ok=false;try{ok=document.execCommand("copy")}catch(e){}x.remove();return ok};
+  const done=ok=>{b.textContent=ok?"COPIED":"SELECT";b.classList.toggle("ok",ok);st.textContent=ok?"Email address copied":"Copy failed. The address is hello@sunta.studio";
+    if(!ok){const r=document.createRange();r.selectNodeContents(document.querySelector("#mail .v"));const s=getSelection();s.removeAllRanges();s.addRange(r)}
+    clearTimeout(t);t=setTimeout(()=>{b.textContent="COPY";b.classList.remove("ok")},1800)};
+  b.addEventListener("click",async()=>{let ok=false;try{if(navigator.clipboard&&isSecureContext){await navigator.clipboard.writeText(m);ok=true}}catch(e){}if(!ok)ok=legacy();done(ok)});})();
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const phone=()=>matchMedia("(max-width:760px)").matches;
+/* phone line breaks: three lines */
+function lines(){
+  const h=document.getElementById("h");
+  h.innerHTML=phone()
+    ?'<span class="ln">Games,</span><span class="ln">stories &amp;</span><span class="ln"><span class="k">weird ideas.</span></span>'
+    :'<span class="ln">Games, stories</span><span class="ln">&amp; <span class="k">weird ideas.</span></span>';
+  const gl=h.parentElement;gl.querySelectorAll(".ghost").forEach(g=>g.remove());
+  ["a","b"].forEach(k=>{const g=document.createElement("div");g.innerHTML=h.innerHTML;g.className="ghost "+k;g.setAttribute("aria-hidden","true");gl.appendChild(g)});
+}
+lines();let lp=phone();addEventListener("resize",()=>{if(phone()!==lp){lp=phone();lines()}});
+
+/* the three: mostly still; now and then one looks at the sun, turns away, or winks */
+const CREW=[{id:"sow",name:"SOW",joy:"sparkle"},{id:"pino",name:"PINO",joy:"happy"},{id:"parm",name:"PARM",joy:"smile"}];
+const src=(c,v)=>`assets/${c}-${v}.png`;
+CREW.forEach(c=>["front-default","front-wink","side","side-left","back","front-"+c.joy].forEach(v=>{const i=new Image();i.src=src(c.id,v)}));
+const crew=document.getElementById("crew");
+const ms=CREW.map(c=>{
+  const b=document.createElement("button");b.className="m";b.setAttribute("aria-label",c.name);
+  b.innerHTML=`<span class="nm">${c.name}</span><img src="${src(c.id,"front-default")}" alt="">`;
+  const img=b.querySelector("img");
+  b.addEventListener("mouseenter",()=>{b._hold=true;img.src=src(c.id,"front-"+c.joy)});
+  b.addEventListener("mouseleave",()=>{b._hold=false;img.src=src(c.id,"front-default")});
+  b.addEventListener("click",()=>{b._hold=true;img.src=src(c.id,"front-"+c.joy);setTimeout(()=>{b._hold=false;img.src=src(c.id,"front-default")},1400)});
+  crew.appendChild(b);return {b,img,c};
+});
+function act(){
+  const free=ms.filter(m=>!m.b._hold);
+  if(free.length){
+    const m=free[Math.random()*free.length|0];
+    const r=Math.random();
+    // the sun is up and to the left of the group on PC, straight above on phone: "side-left" looks toward it
+    const pose=r<.4?"side-left":r<.6?"back":r<.85?"front-wink":"side";
+    const dur=pose==="front-wink"?380:1400+Math.random()*1600;
+    m.img.src=src(m.c.id,pose);
+    setTimeout(()=>{if(!m.b._hold)m.img.src=src(m.c.id,"front-default")},dur);
+  }
+  setTimeout(act,2600+Math.random()*3400);
+}
+if(!reduce)setTimeout(act,2200);
+
+/* glitch: an accent only, rare and small */
+function slice(el){const t=Math.random()*85,h=3+Math.random()*8;el.style.clipPath=`inset(${t}% 0 ${Math.max(0,100-t-h)}% 0)`;el.style.transform=`translateX(${(Math.random()*5-2.5).toFixed(1)}px)`}
+function burst(){const gl=document.querySelector(".gl"),gs=gl.querySelectorAll(".ghost");let n=0;gs.forEach(slice);gl.classList.add("on");
+  const f=setInterval(()=>{gs.forEach(slice);if(++n>2){clearInterval(f);gl.classList.remove("on")}},60)}
+function loop(){burst();setTimeout(loop,12000+Math.random()*8000)}
+if(!reduce)setTimeout(loop,4000);
+
+/* THE TEAM: hover/tap = joy face; now and then one of them winks or glances at a teammate */
+document.querySelectorAll(".mem").forEach(li=>{
+  const id=li.dataset.id,img=li.querySelector("img"),b=li.querySelector(".fig");
+  const set=v=>img.src=`assets/${id}-${v}.png`;li._set=set;
+  b.addEventListener("mouseenter",()=>{li._hold=true;set("front-"+li.dataset.joy)});
+  b.addEventListener("mouseleave",()=>{li._hold=false;set("front-default")});
+  b.addEventListener("click",()=>{li._hold=true;set("front-"+li.dataset.joy);setTimeout(()=>{li._hold=false;set("front-default")},1400)});
+});
+function teamAct(){
+  const ms=[...document.querySelectorAll(".mem")].filter(m=>!m._hold);
+  if(ms.length){const i=Math.random()*ms.length|0,m=ms[i],all=[...document.querySelectorAll(".mem")],k=all.indexOf(m);
+    const r=Math.random();
+    // glance toward a neighbour (side = facing right, side-left = facing left)
+    const pose=r<.45?"front-wink":(k===0?"side":k===2?"side-left":(r<.72?"side":"side-left"));
+    m._set(pose);setTimeout(()=>{if(!m._hold)m._set("front-default")},pose==="front-wink"?380:1300+Math.random()*1200)}
+  setTimeout(teamAct,3000+Math.random()*3500);
+}
+if(!reduce)setTimeout(teamAct,3000);
+</script>
+</body>
+</html>
