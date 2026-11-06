@@ -118,6 +118,31 @@ img{display:block}
 .st.frz{color:var(--muted)}
 .st.frz i{border:1.5px solid var(--muted)}
 
+/* ===== v3 (PC only): steps up to the right, a quiet HUD, PINO at the start. ===== */
+.hud{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:clamp(36px,6vh,64px)}
+.hud .label{margin:0}
+.hud{justify-content:flex-start}
+.hud .world{padding-left:18px;border-left:1px solid var(--line);font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
+.pino,.fut{display:none}
+@media (min-width:961px){
+  .stages{--step:52px;--gap:clamp(24px,3vw,56px);padding-top:64px}
+  .s1{--lift:2}.s2{--lift:1}.s3{--lift:0}
+  .stg{padding-top:calc(76px + var(--lift)*var(--step))}
+  .stg::before{top:calc(35px + var(--lift)*var(--step))}
+  .node{top:calc(28px + var(--lift)*var(--step))}
+  /* risers: the short climb between two platforms */
+  .s1::after,.s2::after{content:"";position:absolute;right:calc(-1*var(--gap));width:2px;top:calc(35px + (var(--lift) - 1)*var(--step));height:calc(var(--step) + 2px)}
+  .s1::after{background:var(--gold)}
+  .s2::after{background:rgba(229,170,27,.55)}
+  .here{left:96px;top:calc(13px + var(--lift)*var(--step))}
+  .pino{display:block;position:absolute;left:22px;top:calc(35px + var(--lift)*var(--step) - 80px);width:64px;height:80px;image-rendering:pixelated}
+  /* future footholds: not built yet, so only dashes */
+  .fut{display:block;position:absolute;height:0;border-top:2px dashed rgba(242,194,48,.5)}
+  .fut.f1{left:58%;width:64px;top:calc(35px - var(--step)*.7)}
+  .fut.f2{left:84%;width:40px;top:calc(35px - var(--step)*1.4);opacity:.45}
+}
+@media (max-width:960px){.hud .world{display:none}}
+
 /* narrow PC / tablet / phone: the road turns and runs down */
 @media (max-width:960px){
   .stages{display:block;padding-left:40px}
@@ -200,10 +225,10 @@ img{display:block}
 </section>
 
 <section class="route wrap gut" aria-labelledby="route-h">
-  <h2 id="route-h" class="label" lang="en"><span class="dot" aria-hidden="true"></span>MAIN ROUTE</h2>
+  <div class="hud"><h2 id="route-h" class="label" lang="en"><span class="dot" aria-hidden="true"></span>MAIN ROUTE</h2><span class="world" lang="en">WORLD 01</span></div>
   <ol class="stages">
     <li class="stg s1">
-      <span class="node" aria-hidden="true"></span><span class="here" lang="en">WE ARE HERE</span>
+      <span class="node" aria-hidden="true"></span><img class="pino" src="/assets/pino-side.png" alt="" aria-hidden="true" width="64" height="80"><span class="here" lang="en">WE ARE HERE</span>
       <p class="no" lang="en">PHASE<b>01</b></p>
       <p class="st prep" lang="en"><i aria-hidden="true"></i>IN PREPARATION</p>
       <h3 lang="en">PIXEL MAHJONG</h3>
@@ -220,6 +245,7 @@ img{display:block}
     </li>
     <li class="stg s3">
       <span class="node" aria-hidden="true"></span>
+      <span class="fut f1" aria-hidden="true"></span><span class="fut f2" aria-hidden="true"></span>
       <p class="no" lang="en">PHASE<b>03</b></p>
       <p class="st expl" lang="en"><i aria-hidden="true"></i>EXPLORING</p>
       <h3 lang="en">A WORLD BEYOND <span class="nw">THE TABLE</span></h3>
@@ -257,6 +283,7 @@ img{display:block}
 </footer>
 
 <script>
+
 /* phone menu: open/close, closes on link tap, Esc or outside tap (same as home) */
 (()=>{const h=document.querySelector(".site-head"),b=h.querySelector(".menu");
   const set=o=>{h.classList.toggle("open",o);b.setAttribute("aria-expanded",o);b.textContent=o?"CLOSE":"MENU"};
