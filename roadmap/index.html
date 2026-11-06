@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=Chakra+Petch:wght@500;600;700&family=M+PLUS+1:wght@400;600;800&display=swap">
 <style>
-/* ROADMAP v1: a menu board in a dark kitchen. Type, hairlines, status lamps. No motion. */
+/* ROADMAP v2: one idea, one road. Type, hairlines, status lamps. No motion. */
 :root{
   --black:#080808; --gold:#E5AA1B; --light:#F2C230; --deep:#D79106; --off:#F5F5F2; --muted:#8f8a80; --line:#1f1c17;
   --body:#c9c5bc; --soft:#aaa59b;
@@ -61,6 +61,7 @@ img{display:block}
 .wrap{max-width:1680px;margin:0 auto;box-sizing:border-box}
 .label{margin:0 0 clamp(40px,7vh,72px);font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);display:flex;align-items:center;gap:12px}
 .label .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.label .dot.cold{background:var(--muted)}
 
 /* intro */
 .intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);
@@ -74,19 +75,38 @@ img{display:block}
 .intro .lede p{margin:0 0 .6em}
 .intro .upd{grid-column:7/13;margin:28px 0 0;font:500 11px/1 var(--f-ui);letter-spacing:.2em;color:var(--muted)}
 
-/* the board */
-.board{list-style:none;margin:0 auto;padding-top:0;padding-bottom:clamp(96px,16vh,180px)}
-.item{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);
-  padding:clamp(40px,6vh,64px) 0;border-top:1px solid var(--line);position:relative}
-.item:last-child{border-bottom:1px solid var(--line)}
-.item .no{grid-column:1/3;margin:0;font:600 12px/1.6 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
-.item .no b{display:block;font:800 clamp(28px,2.6vw,44px)/1 var(--f-body);letter-spacing:-.01em;color:var(--gold);margin-top:10px}
-.item.side .no b{color:var(--muted)}
-.item h2{grid-column:3/8;margin:0;font:800 clamp(26px,2.6vw,46px)/1.08 var(--f-body);letter-spacing:-.015em;color:var(--off)}
-.item .tag{margin:18px 0 0;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
-.item .desc{grid-column:8/13;margin:0;font:400 clamp(15px,1.05vw,17px)/1.95 var(--f-jp);color:var(--body);max-width:30em;font-feature-settings:"palt"}
-.item .head{grid-column:3/8}
-.item .head h2{grid-column:auto}
+/* ROUTE v2: one idea, one road. PC runs left to right like stages; phone runs top to bottom. */
+.route{padding-bottom:clamp(72px,12vh,140px)}
+.route .label,.lane .label{margin-bottom:clamp(36px,6vh,64px)}
+.stages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,3vw,56px)}
+.stg{position:relative;min-width:0;padding-top:76px}
+/* the road: each stage draws the segment from its node to the next one */
+.stg::before{content:"";position:absolute;left:0;right:calc(-1*clamp(24px,3vw,56px));top:35px;height:2px}
+.s1::before{background:var(--gold)}
+.s2::before{background:linear-gradient(to right,var(--gold),rgba(229,170,27,.55))}
+/* beyond 03 the road runs off the edge of the page: the world is wider than the table */
+.s3::before{right:calc(-1*max(32px,env(safe-area-inset-right,0px)));height:0;border-top:2px dashed rgba(242,194,48,.6);
+  -webkit-mask-image:linear-gradient(to right,#000 55%,transparent);mask-image:linear-gradient(to right,#000 55%,transparent)}
+.node{position:absolute;left:0;top:28px;width:16px;height:16px;border-radius:50%;box-sizing:border-box;background:var(--black)}
+.s1 .node{background:var(--gold);box-shadow:0 0 0 6px rgba(229,170,27,.14),0 0 18px rgba(229,170,27,.6)}
+.s2 .node{border:2px solid var(--gold);background:linear-gradient(to right,var(--gold) 50%,var(--black) 50%)}
+.s3 .node{border:2px dashed var(--light)}
+.here{position:absolute;left:-2px;top:0;font:600 10px/1 var(--f-ui);letter-spacing:.24em;color:var(--gold);white-space:nowrap}
+.stg .no{margin:0 0 18px;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
+.stg .no b{font:800 clamp(26px,2.2vw,38px)/1 var(--f-body);letter-spacing:-.01em;color:var(--gold);margin-left:10px;vertical-align:-.12em}
+.stg h3,.lane h3{margin:0;font:800 clamp(24px,2.15vw,38px)/1.08 var(--f-body);letter-spacing:-.015em;color:var(--off)}
+.tag{margin:16px 0 0;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
+.desc{margin:24px 0 0;font:400 clamp(14px,.98vw,16px)/1.95 var(--f-jp);color:var(--body);max-width:26em;font-feature-settings:"palt"}
+
+/* SIDE QUEST: its own lane, not a branch of the main road */
+.lane{padding-bottom:clamp(96px,16vh,180px)}
+.lane .sq{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,3vw,56px);padding-top:56px;margin:0}
+.lane .sq::before{content:"";position:absolute;left:0;width:calc((100% - 2*clamp(24px,3vw,56px))/3);top:21px;height:0;border-top:1px dotted var(--muted)}
+.lane .node{top:14px;width:14px;height:14px;border:1.5px solid var(--muted)}
+.lane .sq .head{grid-column:1/2}
+.lane .sq .desc{grid-column:2/4;margin-top:0;max-width:30em}
+.lane .no{margin:0 0 18px;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
+.lane .no b{font:800 clamp(26px,2.2vw,38px)/1 var(--f-body);color:var(--muted);margin-left:10px;vertical-align:-.12em}
 
 /* status lamp: on / half / outline / cold */
 .st{display:inline-flex;align-items:center;gap:10px;margin:0 0 18px;padding:8px 12px 8px 10px;border:1px solid var(--line);font:600 11px/1 var(--f-ui);letter-spacing:.22em;color:var(--off)}
@@ -97,6 +117,25 @@ img{display:block}
 .st.expl i{border:1.5px dashed var(--light)}
 .st.frz{color:var(--muted)}
 .st.frz i{border:1.5px solid var(--muted)}
+
+/* narrow PC / tablet / phone: the road turns and runs down */
+@media (max-width:960px){
+  .stages{display:block;padding-left:40px}
+  .stg{padding-top:0;padding-bottom:56px}
+  .stg:last-child{padding-bottom:8px}
+  .stg::before{left:-33px;right:auto;top:10px;bottom:-10px;width:2px;height:auto}
+  .s2::before{background:linear-gradient(to bottom,var(--gold),rgba(229,170,27,.55))}
+  .s3::before{right:auto;bottom:-40px;width:0;border-top:0;border-left:2px dashed rgba(242,194,48,.6);
+    -webkit-mask-image:linear-gradient(to bottom,#000 40%,transparent);mask-image:linear-gradient(to bottom,#000 40%,transparent)}
+  .node{left:-40px;top:2px}
+  .here{position:static;display:block;margin:0 0 14px}
+  .stg h3,.lane h3{font-size:clamp(26px,7.4vw,34px)}
+  .desc{font-size:15px;max-width:34em}
+  .lane .sq{display:block;padding:0 0 0 40px}
+  .lane .sq::before{display:none}
+  .lane .node{left:0;top:2px}
+  .lane .sq .desc{margin-top:22px}
+}
 
 /* outro */
 .outro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);padding-bottom:clamp(96px,14vh,160px)}
@@ -120,8 +159,6 @@ img{display:block}
 @media (max-width:1100px){
   .intro .sub,.intro .lede,.intro .upd{grid-column:1/-1}
   .intro .lede{margin-top:32px}
-  .item .head{grid-column:3/-1}
-  .item .desc{grid-column:3/-1;margin-top:28px}
   .outro .note,.outro .fine,.outro .sign,.outro .back{grid-column:1/-1}
   .outro .fine{margin-top:28px}
 }
@@ -131,11 +168,6 @@ img{display:block}
   .intro h1{font-size:clamp(44px,13.6vw,62px);line-height:1.02}
   .intro .sub{margin-top:36px;font-size:22px}
   .intro .lede{margin-top:24px;font-size:15px;line-height:1.95}
-  .item{display:block;padding:40px 0}
-  .item .no{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
-  .item .no b{margin-top:0;font-size:28px}
-  .item h2{font-size:clamp(26px,8vw,34px)}
-  .item .desc{margin-top:22px;font-size:15px}
   .outro{display:block}
   .outro .note{font-size:24px}
   .outro .fine{margin-top:24px;font-size:14px}
@@ -167,44 +199,49 @@ img{display:block}
   <p class="upd" lang="en">LAST UPDATED 2026.11.06</p>
 </section>
 
-<ol class="board wrap gut" aria-label="Roadmap">
-  <li class="item">
-    <p class="no" lang="en">PROJECT<b>01</b></p>
-    <div class="head">
+<section class="route wrap gut" aria-labelledby="route-h">
+  <h2 id="route-h" class="label" lang="en"><span class="dot" aria-hidden="true"></span>MAIN ROUTE</h2>
+  <ol class="stages">
+    <li class="stg s1">
+      <span class="node" aria-hidden="true"></span><span class="here" lang="en">WE ARE HERE</span>
+      <p class="no" lang="en">PHASE<b>01</b></p>
       <p class="st prep" lang="en"><i aria-hidden="true"></i>IN PREPARATION</p>
-      <h2 lang="en">PIXEL MAHJONG</h2>
+      <h3 lang="en">PIXEL MAHJONG</h3>
       <p class="tag" lang="en">WEB GAME</p>
-    </div>
-    <p class="desc" lang="ja">PCブラウザでCPUと対戦できる、ドット絵風の四人麻雀ゲームを制作予定。最初の目標は、ひとつの対局を最後まで楽しめること。</p>
-  </li>
-  <li class="item">
-    <p class="no" lang="en">PROJECT<b>02</b></p>
-    <div class="head">
+      <p class="desc" lang="ja">PCブラウザでCPUと対戦できる、ドット絵風の四人麻雀ゲームを制作予定。最初の目標は、ひとつの対局を最後まで楽しめること。</p>
+    </li>
+    <li class="stg s2">
+      <span class="node" aria-hidden="true"></span>
+      <p class="no" lang="en">PHASE<b>02</b></p>
       <p class="st plan" lang="en"><i aria-hidden="true"></i>PLANNED</p>
-      <h2 lang="en">MAHJONG, <span class="nw">EXPANDED</span></h2>
+      <h3 lang="en">MAHJONG, <span class="nw">EXPANDED</span></h3>
       <p class="tag" lang="en">GAME UPDATE</p>
-    </div>
-    <p class="desc" lang="ja">ルールや対戦の面白さ、操作感を段階的に磨いていきます。小さく公開して、遊びながら育てるプロジェクトです。</p>
-  </li>
-  <li class="item">
-    <p class="no" lang="en">PROJECT<b>03</b></p>
-    <div class="head">
+      <p class="desc" lang="ja">ルールや対戦の面白さ、操作感を段階的に磨いていきます。小さく公開して、遊びながら育てるプロジェクトです。</p>
+    </li>
+    <li class="stg s3">
+      <span class="node" aria-hidden="true"></span>
+      <p class="no" lang="en">PHASE<b>03</b></p>
       <p class="st expl" lang="en"><i aria-hidden="true"></i>EXPLORING</p>
-      <h2 lang="en">A WORLD BEYOND <span class="nw">THE TABLE</span></h2>
+      <h3 lang="en">A WORLD BEYOND <span class="nw">THE TABLE</span></h3>
       <p class="tag" lang="en">2D RPG</p>
-    </div>
-    <p class="desc" lang="ja">いつか麻雀卓の外へ。見下ろし型のドット絵世界を歩き、住人たちと交流する麻雀RPGを構想中。具体的な仕様と制作時期は、今後の検証で決めていきます。</p>
-  </li>
-  <li class="item side">
-    <p class="no" lang="en">SIDE<b>QUEST</b></p>
+      <p class="desc" lang="ja">いつか麻雀卓の外へ。見下ろし型のドット絵世界を歩き、住人たちと交流する麻雀RPGを構想中。具体的な仕様と制作時期は、今後の検証で決めていきます。</p>
+    </li>
+  </ol>
+</section>
+
+<section class="lane wrap gut" aria-labelledby="lane-h">
+  <h2 id="lane-h" class="label" lang="en"><span class="dot cold" aria-hidden="true"></span>SIDE LANE</h2>
+  <div class="sq">
+    <span class="node" aria-hidden="true"></span>
     <div class="head">
+      <p class="no" lang="en">SIDE<b>QUEST</b></p>
       <p class="st frz" lang="en"><i aria-hidden="true"></i>IDEAS IN THE FREEZER</p>
-      <h2 lang="en">MOBILE <span class="nw">EXPERIMENTS</span></h2>
+      <h3 lang="en">MOBILE <span class="nw">EXPERIMENTS</span></h3>
       <p class="tag" lang="en">SMARTPHONE</p>
     </div>
     <p class="desc" lang="ja">シンプルだけど、妙に遊びたくなる。そんな小さなスマホゲームのアイデアも温めています。</p>
-  </li>
-</ol>
+  </div>
+</section>
 
 <section class="outro wrap gut" aria-label="About this roadmap">
   <p class="note" lang="en">Plans may change.<br><span class="k">Weird ideas happen.</span></p>
