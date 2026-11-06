@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roadmap — SUNTA STUDIO</title>
+<meta name="description" content="What SUNTA STUDIO is cooking: a pixel-art mahjong web game in preparation, and the weird ideas that come after.">
+<meta name="theme-color" content="#080808">
+<link rel="canonical" href="https://sunta.studio/roadmap/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SUNTA STUDIO">
+<meta property="og:title" content="WHAT WE'RE COOKING. — SUNTA STUDIO">
+<meta property="og:description" content="ちょっとヘンなものが、できるまで。SUNTA STUDIO public roadmap.">
+<meta property="og:url" content="https://sunta.studio/roadmap/">
+<meta property="og:image" content="https://sunta.studio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SUNTA STUDIO — Games, stories &amp; weird ideas.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=Chakra+Petch:wght@500;600;700&family=M+PLUS+1:wght@400;600;800&display=swap">
+<style>
+/* ROADMAP v1: a menu board in a dark kitchen. Type, hairlines, status lamps. No motion. */
+:root{
+  --black:#080808; --gold:#E5AA1B; --light:#F2C230; --deep:#D79106; --off:#F5F5F2; --muted:#8f8a80; --line:#1f1c17;
+  --body:#c9c5bc; --soft:#aaa59b;
+  --f-body:"Sora",system-ui,sans-serif;
+  --f-ui:"Chakra Petch","Arial",sans-serif;
+  --f-jp:"M PLUS 1","Hiragino Sans","Noto Sans JP",sans-serif;
+  --head:72px;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+body{margin:0;background:var(--black);color:var(--off);font-family:var(--f-ui);overflow-x:hidden}
+img{display:block}
+.gut{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+@media (max-width:640px){.gut{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}}
+.nw{white-space:nowrap}
+
+/* official header (same as home) */
+.site-head{height:var(--head);box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--black);border-bottom:1px solid var(--line);position:relative;z-index:10}
+.site-head .home{display:block;margin-left:-18px}
+.site-head .logo{height:54px;width:auto}
+.site-head a:focus-visible,.menu:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+.site-head nav{display:flex;gap:30px;font:500 12px/1 var(--f-ui);letter-spacing:.18em}
+.site-head nav a{color:#B8B8B8;text-decoration:none}
+.site-head nav a:hover,.site-head nav a:focus-visible{color:var(--off)}
+.site-head nav a[aria-current="page"]{color:var(--gold)}
+.menu{display:none;font:600 12px/1 var(--f-ui);letter-spacing:.18em;color:var(--off);background:none;border:1px solid #3a352c;padding:9px 12px}
+@media (max-width:760px){.site-head nav{display:none}.menu{display:block}
+  .site-head.open nav{display:flex;flex-direction:column;gap:0;position:absolute;left:0;right:0;top:100%;background:var(--black);border-bottom:1px solid var(--line);padding:8px max(22px,env(safe-area-inset-left,0px)) 16px}
+  .site-head.open nav a{padding:18px 0;font-size:14px;color:var(--off);border-bottom:1px solid var(--line)}
+  .site-head.open nav a[aria-current="page"]{color:var(--gold)}
+  .site-head.open nav a:last-child{border-bottom:0}
+  .site-head.open .menu{border-color:var(--gold);color:var(--gold)}}
+
+.wrap{max-width:1680px;margin:0 auto;box-sizing:border-box}
+.label{margin:0 0 clamp(40px,7vh,72px);font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted);display:flex;align-items:center;gap:12px}
+.label .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* intro */
+.intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);
+  padding-top:clamp(96px,16vh,180px);padding-bottom:clamp(72px,12vh,140px)}
+.intro .label{grid-column:1/-1}
+.intro h1{grid-column:1/-1;margin:0;font:800 clamp(44px,7.2vw,136px)/1.0 var(--f-body);letter-spacing:-.03em;color:var(--off)}
+.intro h1 .ln{display:block}
+.intro h1 .k{color:var(--gold)}
+.intro .sub{grid-column:1/7;margin:clamp(48px,8vh,88px) 0 0;font:800 clamp(22px,1.9vw,34px)/1.35 var(--f-jp);letter-spacing:-.02em;color:var(--off);font-feature-settings:"palt"}
+.intro .lede{grid-column:7/13;margin:clamp(48px,8vh,88px) 0 0;font:400 clamp(15px,1.05vw,18px)/2 var(--f-jp);color:var(--body);max-width:30em;font-feature-settings:"palt"}
+.intro .lede p{margin:0 0 .6em}
+.intro .upd{grid-column:7/13;margin:28px 0 0;font:500 11px/1 var(--f-ui);letter-spacing:.2em;color:var(--muted)}
+
+/* the board */
+.board{list-style:none;margin:0 auto;padding-top:0;padding-bottom:clamp(96px,16vh,180px)}
+.item{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);
+  padding:clamp(40px,6vh,64px) 0;border-top:1px solid var(--line);position:relative}
+.item:last-child{border-bottom:1px solid var(--line)}
+.item .no{grid-column:1/3;margin:0;font:600 12px/1.6 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
+.item .no b{display:block;font:800 clamp(28px,2.6vw,44px)/1 var(--f-body);letter-spacing:-.01em;color:var(--gold);margin-top:10px}
+.item.side .no b{color:var(--muted)}
+.item h2{grid-column:3/8;margin:0;font:800 clamp(26px,2.6vw,46px)/1.08 var(--f-body);letter-spacing:-.015em;color:var(--off)}
+.item .tag{margin:18px 0 0;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
+.item .desc{grid-column:8/13;margin:0;font:400 clamp(15px,1.05vw,17px)/1.95 var(--f-jp);color:var(--body);max-width:30em;font-feature-settings:"palt"}
+.item .head{grid-column:3/8}
+.item .head h2{grid-column:auto}
+
+/* status lamp: on / half / outline / cold */
+.st{display:inline-flex;align-items:center;gap:10px;margin:0 0 18px;padding:8px 12px 8px 10px;border:1px solid var(--line);font:600 11px/1 var(--f-ui);letter-spacing:.22em;color:var(--off)}
+.st i{width:8px;height:8px;border-radius:50%;flex:none;box-sizing:border-box}
+.st.prep{border-color:rgba(229,170,27,.55);color:var(--gold)}
+.st.prep i{background:var(--gold);box-shadow:0 0 10px rgba(229,170,27,.55)}
+.st.plan i{border:1.5px solid var(--gold);background:linear-gradient(to right,var(--gold) 50%,transparent 50%)}
+.st.expl i{border:1.5px dashed var(--light)}
+.st.frz{color:var(--muted)}
+.st.frz i{border:1.5px solid var(--muted)}
+
+/* outro */
+.outro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);padding-bottom:clamp(96px,14vh,160px)}
+.outro .note{grid-column:1/7;margin:0;font:800 clamp(22px,1.9vw,34px)/1.2 var(--f-body);letter-spacing:-.005em;color:var(--off)}
+.outro .note .k{color:var(--gold)}
+.outro .fine{grid-column:7/13;margin:0;font:400 clamp(14px,.95vw,16px)/1.9 var(--f-jp);color:var(--soft);max-width:32em;font-feature-settings:"palt"}
+.outro .sign{grid-column:7/13;margin:clamp(48px,8vh,80px) 0 0;padding-top:24px;position:relative;font:800 clamp(18px,1.4vw,24px)/1.5 var(--f-body);color:var(--gold)}
+.outro .sign::before{content:"";position:absolute;left:0;top:0;width:48px;height:2px;background:var(--deep)}
+.outro .sign .jp{display:block;font-family:var(--f-jp);color:var(--off);font-feature-settings:"palt"}
+.outro .back{grid-column:7/13;margin:44px 0 0}
+.outro .back a{display:inline-flex;align-items:center;gap:12px;min-height:44px;font:600 12px/1 var(--f-ui);letter-spacing:.2em;color:var(--body);text-decoration:none;border-bottom:1px solid var(--line);transition:color .25s,border-color .25s}
+.outro .back a:hover,.outro .back a:focus-visible{color:var(--gold);border-color:var(--gold)}
+.outro .back a:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+
+/* footer (same as home) */
+.site-foot{position:relative;background:var(--black);max-width:1680px;margin:0 auto;box-sizing:border-box;padding-bottom:max(28px,env(safe-area-inset-bottom,0px))}
+.site-foot .hz{position:relative;height:clamp(56px,6vw,96px);overflow:hidden;border-bottom:1px solid rgba(229,170,27,.38)}
+.site-foot .hz img{position:absolute;left:50%;bottom:0;width:clamp(56px,4.4vw,72px);height:auto;transform:translateX(-50%)}
+.site-foot .meta{display:flex;justify-content:space-between;gap:16px;padding-top:22px;font:500 11px/1.4 var(--f-ui);letter-spacing:.2em;color:var(--muted)}
+
+@media (max-width:1100px){
+  .intro .sub,.intro .lede,.intro .upd{grid-column:1/-1}
+  .intro .lede{margin-top:32px}
+  .item .head{grid-column:3/-1}
+  .item .desc{grid-column:3/-1;margin-top:28px}
+  .outro .note,.outro .fine,.outro .sign,.outro .back{grid-column:1/-1}
+  .outro .fine{margin-top:28px}
+}
+@media (max-width:760px){
+  .intro{display:block;padding-top:88px;padding-bottom:72px}
+  .intro .label{margin-bottom:36px}
+  .intro h1{font-size:clamp(44px,13.6vw,62px);line-height:1.02}
+  .intro .sub{margin-top:36px;font-size:22px}
+  .intro .lede{margin-top:24px;font-size:15px;line-height:1.95}
+  .item{display:block;padding:40px 0}
+  .item .no{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  .item .no b{margin-top:0;font-size:28px}
+  .item h2{font-size:clamp(26px,8vw,34px)}
+  .item .desc{margin-top:22px;font-size:15px}
+  .outro{display:block}
+  .outro .note{font-size:24px}
+  .outro .fine{margin-top:24px;font-size:14px}
+  .outro .sign{margin-top:56px;font-size:18px}
+  .site-foot .hz{height:52px}
+  .site-foot .hz img{width:56px}
+  .site-foot .meta{flex-direction:column;gap:8px;font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){.outro .back a{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="site-head gut">
+  <a class="home" href="/" aria-label="SUNTA STUDIO, home"><img class="logo" src="/assets/sunta-midnight-logotype-v2.0.svg" alt=""></a>
+  <nav aria-label="Main" id="gnav"><a href="/#about">ABOUT</a><a href="/#team">THE TEAM</a><a href="/roadmap/" aria-current="page">ROADMAP</a><a href="/#connect">CONNECT</a></nav>
+  <button class="menu" type="button" aria-expanded="false" aria-controls="gnav">MENU</button>
+</header>
+
+<main>
+<section class="intro wrap gut" aria-labelledby="rm-h">
+  <p class="label"><span class="dot" aria-hidden="true"></span>ROADMAP / NOW &amp; NEXT</p>
+  <h1 id="rm-h" lang="en"><span class="ln">WHAT WE'RE</span> <span class="ln"><span class="k">COOKING.</span></span></h1>
+  <p class="sub" lang="ja">ちょっとヘンなものが、<br>できるまで。</p>
+  <div class="lede" lang="ja">
+    <p>僕らは今、ドット絵の麻雀ゲームの制作準備を進めています。まずはブラウザで遊べる小さな一作から。</p>
+    <p>いずれは、ドット絵の世界を歩き回り、人と出会い、麻雀を楽しむRPGへ。</p>
+  </div>
+  <p class="upd" lang="en">LAST UPDATED 2026.11.06</p>
+</section>
+
+<ol class="board wrap gut" aria-label="Roadmap">
+  <li class="item">
+    <p class="no" lang="en">PROJECT<b>01</b></p>
+    <div class="head">
+      <p class="st prep" lang="en"><i aria-hidden="true"></i>IN PREPARATION</p>
+      <h2 lang="en">PIXEL MAHJONG</h2>
+      <p class="tag" lang="en">WEB GAME</p>
+    </div>
+    <p class="desc" lang="ja">PCブラウザでCPUと対戦できる、ドット絵風の四人麻雀ゲームを制作予定。最初の目標は、ひとつの対局を最後まで楽しめること。</p>
+  </li>
+  <li class="item">
+    <p class="no" lang="en">PROJECT<b>02</b></p>
+    <div class="head">
+      <p class="st plan" lang="en"><i aria-hidden="true"></i>PLANNED</p>
+      <h2 lang="en">MAHJONG, <span class="nw">EXPANDED</span></h2>
+      <p class="tag" lang="en">GAME UPDATE</p>
+    </div>
+    <p class="desc" lang="ja">ルールや対戦の面白さ、操作感を段階的に磨いていきます。小さく公開して、遊びながら育てるプロジェクトです。</p>
+  </li>
+  <li class="item">
+    <p class="no" lang="en">PROJECT<b>03</b></p>
+    <div class="head">
+      <p class="st expl" lang="en"><i aria-hidden="true"></i>EXPLORING</p>
+      <h2 lang="en">A WORLD BEYOND <span class="nw">THE TABLE</span></h2>
+      <p class="tag" lang="en">2D RPG</p>
+    </div>
+    <p class="desc" lang="ja">いつか麻雀卓の外へ。見下ろし型のドット絵世界を歩き、住人たちと交流する麻雀RPGを構想中。具体的な仕様と制作時期は、今後の検証で決めていきます。</p>
+  </li>
+  <li class="item side">
+    <p class="no" lang="en">SIDE<b>QUEST</b></p>
+    <div class="head">
+      <p class="st frz" lang="en"><i aria-hidden="true"></i>IDEAS IN THE FREEZER</p>
+      <h2 lang="en">MOBILE <span class="nw">EXPERIMENTS</span></h2>
+      <p class="tag" lang="en">SMARTPHONE</p>
+    </div>
+    <p class="desc" lang="ja">シンプルだけど、妙に遊びたくなる。そんな小さなスマホゲームのアイデアも温めています。</p>
+  </li>
+</ol>
+
+<section class="outro wrap gut" aria-label="About this roadmap">
+  <p class="note" lang="en">Plans may change.<br><span class="k">Weird ideas happen.</span></p>
+  <p class="fine" lang="ja">このロードマップは現時点の制作方針であり、リリース日や各作品の公開を保証するものではありません。状況や新しいアイデアに応じて更新します。</p>
+  <p class="sign"><span lang="en">Games, stories &amp; weird ideas.</span><span class="jp" lang="ja">ちょっとヘンで、わりと本気。</span></p>
+  <p class="back"><a href="/" lang="en"><span aria-hidden="true">←</span>BACK TO HOME</a></p>
+</section>
+</main>
+
+<footer class="site-foot gut">
+  <div class="hz" aria-hidden="true"><img src="/assets/sunta-noon-symbol-v2.0.svg" alt=""></div>
+  <div class="meta"><span>© 2026 SUNTA STUDIO</span><span>EST. 2026 · JAPAN</span></div>
+</footer>
+
+<script>
+/* phone menu: open/close, closes on link tap, Esc or outside tap (same as home) */
+(()=>{const h=document.querySelector(".site-head"),b=h.querySelector(".menu");
+  const set=o=>{h.classList.toggle("open",o);b.setAttribute("aria-expanded",o);b.textContent=o?"CLOSE":"MENU"};
+  b.addEventListener("click",e=>{e.stopPropagation();set(!h.classList.contains("open"))});
+  h.querySelectorAll("nav a").forEach(a=>a.addEventListener("click",()=>set(false)));
+  addEventListener("keydown",e=>{if(e.key==="Escape")set(false)});
+  addEventListener("click",e=>{if(!h.contains(e.target))set(false)});})();
+</script>
+<!-- Cloudflare Web Analytics (cookie-less, no DNS change) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6c9ccb901a8f4640908332a12889055a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
