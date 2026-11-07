@@ -98,15 +98,25 @@ img{display:block}
 .tag{margin:16px 0 0;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
 .desc{margin:24px 0 0;font:400 clamp(14px,.98vw,16px)/1.95 var(--f-jp);color:var(--body);max-width:26em;font-feature-settings:"palt"}
 
-/* SIDE QUEST: its own lane, not a branch of the main road */
-.lane{padding-bottom:clamp(96px,16vh,180px)}
-.lane .sq{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,3vw,56px);padding-top:56px;margin:0}
-.lane .sq::before{content:"";position:absolute;left:0;width:calc((100% - 2*clamp(24px,3vw,56px))/3);top:21px;height:0;border-top:1px dotted var(--muted)}
-.lane .node{top:14px;width:14px;height:14px;border:1.5px solid var(--muted)}
-.lane .sq .head{grid-column:1/2}
-.lane .sq .desc{grid-column:2/4;margin-top:0;max-width:30em}
-.lane .no{margin:0 0 18px;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
-.lane .no b{font:800 clamp(26px,2.2vw,38px)/1 var(--f-body);color:var(--muted);margin-left:10px;vertical-align:-.12em}
+/* SIDE QUEST v3.2: a hidden stage off the main road. A thin grey path, one quiet checkpoint,
+   and the whole quest grouped on it. Lower in priority than MAIN ROUTE: grey, smaller, no glow. */
+.lane{padding-bottom:clamp(64px,10vh,112px)}
+.lane .hud{margin-bottom:clamp(28px,4.5vh,44px)}
+.lane .sq{position:relative;margin:0;padding:52px 0 0 0}
+/* the path: grey dots that fade out to the right (it leads somewhere, just not yet) */
+.lane .sq::before{content:"";position:absolute;left:0;right:calc(-1*max(32px,env(safe-area-inset-right,0px)));top:17px;height:0;border-top:1px dashed rgba(143,138,128,.55);
+  -webkit-mask-image:linear-gradient(to right,#000 45%,transparent 92%);mask-image:linear-gradient(to right,#000 45%,transparent 92%)}
+/* checkpoint: a small hollow diamond, not a gold node */
+.lane .node{position:absolute;left:1px;top:11px;width:12px;height:12px;border:1.5px solid var(--muted);border-radius:0;background:var(--black);transform:rotate(45deg)}
+.lane .cp{position:absolute;top:13px;width:7px;height:7px;border:1px solid rgba(143,138,128,.5);background:var(--black);transform:rotate(45deg)}
+.lane .cp.c1{left:56%}.lane .cp.c2{left:74%;opacity:.5}
+.lane .q{display:grid;grid-template-columns:auto minmax(0,30em);column-gap:clamp(32px,4vw,72px);align-items:start;max-width:max-content}
+.lane .q .head{min-width:0}
+.lane .no{margin:0 0 16px;font:600 11px/1 var(--f-ui);letter-spacing:.24em;color:var(--muted)}
+.lane .no b{font:800 clamp(20px,1.6vw,28px)/1 var(--f-body);color:var(--muted);margin-left:10px;vertical-align:-.1em}
+.lane .st{margin:0 0 16px}
+.lane h3{font-size:clamp(20px,1.6vw,28px);color:#dcd8cf}
+.lane .q .desc{max-width:30em;margin:30px 0 0;padding-left:clamp(24px,2.4vw,40px);border-left:1px solid var(--line);color:var(--soft)}
 
 /* status lamp: on / half / outline / cold */
 .st{display:inline-flex;align-items:center;gap:10px;margin:0 0 18px;padding:8px 12px 8px 10px;border:1px solid var(--line);font:600 11px/1 var(--f-ui);letter-spacing:.22em;color:var(--off)}
@@ -156,21 +166,33 @@ img{display:block}
   .here{position:static;display:block;margin:0 0 14px}
   .stg h3,.lane h3{font-size:clamp(26px,7.4vw,34px)}
   .desc{font-size:15px;max-width:34em}
-  .lane .sq{display:block;padding:0 0 0 40px}
-  .lane .sq::before{display:none}
-  .lane .node{left:0;top:2px}
-  .lane .sq .desc{margin-top:22px}
+  .lane .sq{padding:2px 0 0 40px}
+  /* phone: the hidden path runs down, thin and grey, beside the quest */
+  .lane .sq::before{left:7px;right:auto;top:20px;bottom:-56px;width:0;height:auto;border-top:0;border-left:1px dashed rgba(143,138,128,.55);
+    -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent);mask-image:linear-gradient(to bottom,#000 55%,transparent)}
+  .lane .node{left:1px;top:3px}
+  .lane .cp{display:none}
+  .lane .q{display:block}
+  .lane h3{font-size:clamp(22px,6.2vw,28px)}
+  .lane .q .desc{margin-top:20px;padding-left:0;border-left:0}
 }
 
-/* outro */
-.outro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);padding-bottom:clamp(96px,14vh,160px)}
-.outro .note{grid-column:1/7;margin:0;font:800 clamp(22px,1.9vw,34px)/1.2 var(--f-body);letter-spacing:-.005em;color:var(--off)}
+/* outro v3.2: "Plans may change." reads like the message at the end of a stage:
+   one quiet framed box in the middle, then the brand line and the way home, simply. */
+.outro{padding-bottom:clamp(56px,8vh,88px)}
+.endmsg{position:relative;max-width:640px;margin:0 auto;box-sizing:border-box;padding:clamp(36px,4vw,48px) clamp(32px,4vw,56px) clamp(40px,4.4vw,52px);border:1px solid #2c2820;background:#0c0b09}
+.endmsg::before,.endmsg::after{content:"";position:absolute;width:10px;height:10px;border-color:var(--deep);border-style:solid}
+.endmsg::before{left:-1px;top:-1px;border-width:2px 0 0 2px}
+.endmsg::after{right:-1px;bottom:-1px;border-width:0 2px 2px 0}
+.outro .note{margin:0;font:800 clamp(22px,1.9vw,32px)/1.25 var(--f-body);letter-spacing:-.005em;color:var(--off)}
 .outro .note .k{color:var(--gold)}
-.outro .fine{grid-column:7/13;margin:0;font:400 clamp(14px,.95vw,16px)/1.9 var(--f-jp);color:var(--soft);max-width:32em;font-feature-settings:"palt"}
-.outro .sign{grid-column:7/13;margin:clamp(48px,8vh,80px) 0 0;padding-top:24px;position:relative;font:800 clamp(18px,1.4vw,24px)/1.5 var(--f-body);color:var(--gold)}
-.outro .sign::before{content:"";position:absolute;left:0;top:0;width:48px;height:2px;background:var(--deep)}
+.outro .fine{margin:22px 0 0;font:400 clamp(13px,.9vw,15px)/1.9 var(--f-jp);color:var(--soft);font-feature-settings:"palt"}
+/* the "more to come" cue in the corner of a game text box; static, decorative */
+.endmsg .more{position:absolute;right:clamp(22px,2.4vw,30px);bottom:clamp(16px,1.8vw,22px);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--gold)}
+.outro .close{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:clamp(56px,8vh,88px)}
+.outro .sign{margin:0;font:800 clamp(17px,1.25vw,22px)/1.5 var(--f-body);color:var(--gold)}
 .outro .sign .jp{display:block;font-family:var(--f-jp);color:var(--off);font-feature-settings:"palt"}
-.outro .back{grid-column:7/13;margin:44px 0 0}
+.outro .back{margin:28px 0 0}
 .outro .back a{display:inline-flex;align-items:center;gap:12px;min-height:44px;font:600 12px/1 var(--f-ui);letter-spacing:.2em;color:var(--body);text-decoration:none;border-bottom:1px solid var(--line);transition:color .25s,border-color .25s}
 .outro .back a:hover,.outro .back a:focus-visible{color:var(--gold);border-color:var(--gold)}
 .outro .back a:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
@@ -184,8 +206,6 @@ img{display:block}
 @media (max-width:1100px){
   .intro .sub,.intro .lede,.intro .upd{grid-column:1/-1}
   .intro .lede{margin-top:32px}
-  .outro .note,.outro .fine,.outro .sign,.outro .back{grid-column:1/-1}
-  .outro .fine{margin-top:28px}
 }
 @media (max-width:760px){
   .intro{display:block;padding-top:88px;padding-bottom:72px}
@@ -193,10 +213,12 @@ img{display:block}
   .intro h1{font-size:clamp(44px,13.6vw,62px);line-height:1.02}
   .intro .sub{margin-top:36px;font-size:22px}
   .intro .lede{margin-top:24px;font-size:15px;line-height:1.95}
-  .outro{display:block}
+  .endmsg{padding:30px 24px 38px}
   .outro .note{font-size:24px}
-  .outro .fine{margin-top:24px;font-size:14px}
-  .outro .sign{margin-top:56px;font-size:18px}
+  .outro .fine{margin-top:18px;font-size:14px}
+  .endmsg .more{right:20px;bottom:16px}
+  .outro .close{margin-top:52px}
+  .outro .sign{font-size:17px}
   .site-foot .hz{height:52px}
   .site-foot .hz img{width:56px}
   .site-foot .meta{flex-direction:column;gap:8px;font-size:10px}
@@ -256,9 +278,10 @@ img{display:block}
 </section>
 
 <section class="lane wrap gut" aria-labelledby="lane-h">
-  <h2 id="lane-h" class="label" lang="en"><span class="dot cold" aria-hidden="true"></span>SIDE LANE</h2>
+  <div class="hud"><h2 id="lane-h" class="label" lang="en"><span class="dot cold" aria-hidden="true"></span>SIDE LANE</h2><span class="world" lang="en">OFF ROUTE</span></div>
   <div class="sq">
-    <span class="node" aria-hidden="true"></span>
+    <span class="node" aria-hidden="true"></span><span class="cp c1" aria-hidden="true"></span><span class="cp c2" aria-hidden="true"></span>
+    <div class="q">
     <div class="head">
       <p class="no" lang="en">SIDE<b>QUEST</b></p>
       <p class="st frz" lang="en"><i aria-hidden="true"></i>IDEAS IN THE FREEZER</p>
@@ -266,14 +289,20 @@ img{display:block}
       <p class="tag" lang="en">SMARTPHONE</p>
     </div>
     <p class="desc" lang="ja">シンプルだけど、妙に遊びたくなる。そんな小さなスマホゲームのアイデアも温めています。</p>
+    </div>
   </div>
 </section>
 
 <section class="outro wrap gut" aria-label="About this roadmap">
-  <p class="note" lang="en">Plans may change.<br><span class="k">Weird ideas happen.</span></p>
-  <p class="fine" lang="ja">このロードマップは現時点の制作方針であり、リリース日や各作品の公開を保証するものではありません。状況や新しいアイデアに応じて更新します。</p>
-  <p class="sign"><span lang="en">Games, stories &amp; weird ideas.</span><span class="jp" lang="ja">ちょっとヘンで、わりと本気。</span></p>
-  <p class="back"><a href="/" lang="en"><span aria-hidden="true">←</span>BACK TO HOME</a></p>
+  <div class="endmsg">
+    <p class="note" lang="en">Plans may change.<br><span class="k">Weird ideas happen.</span></p>
+    <p class="fine" lang="ja">このロードマップは現時点の制作方針であり、リリース日や各作品の公開を保証するものではありません。状況や新しいアイデアに応じて更新します。</p>
+    <span class="more" aria-hidden="true"></span>
+  </div>
+  <div class="close">
+    <p class="sign"><span lang="en">Games, stories &amp; weird ideas.</span><span class="jp" lang="ja">ちょっとヘンで、わりと本気。</span></p>
+    <p class="back"><a href="/" lang="en"><span aria-hidden="true">←</span>BACK TO HOME</a></p>
+  </div>
 </section>
 </main>
 
