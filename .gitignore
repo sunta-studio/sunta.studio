@@ -1,0 +1,8 @@
+# Local secrets (never commit real credentials)
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Claude Code local settings (personal, machine-specific)
+.claude/settings.local.json
