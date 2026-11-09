@@ -1,0 +1,50 @@
+# gitleaks config for SUNTA STUDIO repos.
+# Default rules + checks for secrets typed straight into shell commands
+# (the pattern Claude Code can save via "Yes, and don't ask again").
+title = "SUNTA secret scan"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public-by-design values only"
+# Matched against the detected secret itself (not the whole line), so any
+# other secret on the same line is still reported.
+regexTarget = "secret"
+regexes = [
+  # Cloudflare Web Analytics beacon token for sunta.studio: sent to every visitor.
+  '''^6c9ccb901a8f4640908332a12889055a$''',
+]
+
+[[rules]]
+id = "claude-local-settings-committed"
+description = "Claude Code personal settings (.claude/settings.local.json) must never be committed"
+path = '''(^|/)\.claude/settings\.local\.json$'''
+
+[[rules]]
+id = "cli-inline-db-password"
+description = "Password passed directly to a database / ssh CLI"
+regex = '''(?i)\b(?:mysql|mysqldump|mariadb|psql|pg_dump|mongo|mongosh|redis-cli|sshpass)\b[^\n]{0,100}?\s(?:-p|--password[= ]|-a\s+)['"]?([^\s'"$-][^\s'"]{5,})'''
+secretGroup = 1
+keywords = ["mysql", "mysqldump", "mariadb", "psql", "pg_dump", "mongo", "redis-cli", "sshpass"]
+
+[[rules]]
+id = "cli-auth-header"
+description = "Authorization header with a literal token in a command"
+regex = '''(?i)Authorization:\s*(?:Bearer|Basic|token)\s+([A-Za-z0-9._~+/=-]{12,})'''
+secretGroup = 1
+keywords = ["authorization"]
+
+[[rules]]
+id = "cli-curl-user-password"
+description = "curl -u user:password with a literal password"
+regex = '''(?i)\bcurl\b[^\n]{0,100}?\s(?:-u|--user)\s+['"]?[^\s:'"]+:([^\s'"$]{6,})'''
+secretGroup = 1
+keywords = ["curl"]
+
+[[rules]]
+id = "inline-env-secret"
+description = "Secret-looking variable assigned a literal value (e.g. API_TOKEN=... in a command)"
+regex = '''\b[A-Z0-9_]*(?:TOKEN|SECRET|PASSWORD|PASSWD|API_KEY|APIKEY)[A-Z0-9_]*=['"]?([^\s'"$]{8,})'''
+secretGroup = 1
+keywords = ["token", "secret", "password", "passwd", "api_key", "apikey"]
