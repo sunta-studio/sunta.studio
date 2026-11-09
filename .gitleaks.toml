@@ -7,11 +7,13 @@ title = "SUNTA secret scan"
 useDefault = true
 
 [allowlist]
-description = "Values that are public by design"
-regexTarget = "line"
+description = "Public-by-design values only"
+# Matched against the detected secret itself (not the whole line), so any
+# other secret on the same line is still reported.
+regexTarget = "secret"
 regexes = [
-  # Cloudflare Web Analytics beacon token: sent to every visitor, not a secret.
-  '''data-cf-beacon''',
+  # Cloudflare Web Analytics beacon token for sunta.studio: sent to every visitor.
+  '''^6c9ccb901a8f4640908332a12889055a$''',
 ]
 
 [[rules]]
